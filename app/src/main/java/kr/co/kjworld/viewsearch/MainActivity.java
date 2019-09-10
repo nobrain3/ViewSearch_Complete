@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements SearchFragment.It
                 {
                     Fragment currentFragment = manager.findFragmentById(R.id.fragment_container);
                     if (currentFragment instanceof SearchFragment) {
+                        ((SearchFragment)currentFragment).notifyDim();
                         setSupportActionBar(mToolbar);
                     }
                 }

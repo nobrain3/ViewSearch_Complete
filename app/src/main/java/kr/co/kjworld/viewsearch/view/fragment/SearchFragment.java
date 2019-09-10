@@ -212,6 +212,10 @@ public class SearchFragment extends Fragment {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(item -> mAdapter.updateCafeData(item));
         }
-
     }
+
+    public void notifyDim() {
+        mAdapter.notifyDataSetChanged();
+    }
+
 }
