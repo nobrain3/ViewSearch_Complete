@@ -9,5 +9,6 @@ public class Document {
     public boolean isCafe;
     public String url;
     public String contents;
+    public boolean isSawItem;
 
 }

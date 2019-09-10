@@ -5,14 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -174,11 +178,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.mLabelView.setText(data.label);
         holder.mNameView.setText(data.name);
         holder.mTitleView.setText(data.title);
-        holder.mDateTimeView.setText(data.datetime);
+        SimpleDateFormat beforeDateFormat =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        Date date = null;
+        try {
+             date = beforeDateFormat.parse(data.datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat afterDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        String dateStr = afterDateFormat.format(date);
+        holder.mDateTimeView.setText(dateStr);
 
         Glide.with(mContext)
                 .load(data.thumbnail)
                 .into(holder.mThumbnailView);
+
+        if (data.isSawItem)
+            holder.mDimView.setVisibility(View.VISIBLE);
+        else
+            holder.mDimView.setVisibility(View.INVISIBLE);
     }
 
     public void updateBlogData(KakaoData data)
@@ -196,6 +214,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             newDocument.title = document.title;
             newDocument.contents = document.contents;
             newDocument.url = document.url;
+            newDocument.isSawItem = false;
             mSearcList.add(newDocument);
         }
         sort(SORT_TITLE);
@@ -218,6 +237,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             newDocument.title = document.title;
             newDocument.url = document.url;
             newDocument.contents = document.contents;
+            newDocument.isSawItem = false;
             mSearcList.add(newDocument);
         }
         sort(SORT_TITLE);
@@ -258,6 +278,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         TextView mTitleView;
         TextView mDateTimeView;
         ImageView mThumbnailView;
+        View mDimView;
 
         public SearchViewHolder(@NonNull View itemView){
             super(itemView);
@@ -266,6 +287,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             mTitleView = itemView.findViewById(R.id.cardview_title);
             mDateTimeView = itemView.findViewById(R.id.careview_date_time);
             mThumbnailView = itemView.findViewById(R.id.cardview_thumbnail);
+            mDimView = itemView.findViewById(R.id.cardview_dim);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
