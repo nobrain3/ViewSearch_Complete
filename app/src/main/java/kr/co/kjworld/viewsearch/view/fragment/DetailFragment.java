@@ -23,6 +23,7 @@ import java.util.Date;
 
 import kr.co.kjworld.viewsearch.R;
 import kr.co.kjworld.viewsearch.data.response.data.Document;
+import kr.co.kjworld.viewsearch.util.DateUtil;
 
 public class DetailFragment extends Fragment {
 
@@ -85,15 +86,7 @@ public class DetailFragment extends Fragment {
         {
             mNameView.setText(mDocument.name);
             mTitle.setText(mDocument.title);
-            SimpleDateFormat beforeDateFormat =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-            Date date = null;
-            try {
-                date = beforeDateFormat.parse(mDocument.datetime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            SimpleDateFormat afterDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-            String dateStr = afterDateFormat.format(date);
+            String dateStr = DateUtil.changeDateString(mDocument.datetime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy년 MM월 dd일");
             mDateTime.setText(dateStr);
             mContents.setText(mDocument.contents);
             mURLView.setText(mDocument.url);

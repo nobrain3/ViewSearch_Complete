@@ -164,8 +164,6 @@ public class SearchFragment extends Fragment {
 
     public void searchStart(String aText, Context context)
     {
-        View view = getView();
-
         mCurrentSearchText = aText;
         mSearchPageCount = 1;
 

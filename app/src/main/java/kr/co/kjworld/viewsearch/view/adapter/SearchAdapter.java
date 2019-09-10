@@ -25,6 +25,7 @@ import kr.co.kjworld.viewsearch.R;
 import kr.co.kjworld.viewsearch.data.response.data.Document;
 import kr.co.kjworld.viewsearch.data.response.data.KakaoData;
 import kr.co.kjworld.viewsearch.data.response.data.Meta;
+import kr.co.kjworld.viewsearch.util.DateUtil;
 import kr.co.kjworld.viewsearch.view.fragment.SearchFragment;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
@@ -178,15 +179,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         holder.mLabelView.setText(data.label);
         holder.mNameView.setText(data.name);
         holder.mTitleView.setText(data.title);
-        SimpleDateFormat beforeDateFormat =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        Date date = null;
-        try {
-             date = beforeDateFormat.parse(data.datetime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat afterDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-        String dateStr = afterDateFormat.format(date);
+        String dateStr = DateUtil.changeDateString(data.datetime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "yyyy년 MM월 dd일");
         holder.mDateTimeView.setText(dateStr);
 
         Glide.with(mContext)
