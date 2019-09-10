@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ViewSearch</string>
+
+    <string name="actionbar_search">"Search"</string>
+
+    <string name="dialog_title">List type</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancle">Cancle</string>
+
+    <string name="detail_go_button">Go</string>
+
+</resources>
